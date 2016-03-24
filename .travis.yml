@@ -5,7 +5,7 @@ before_install:
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test     # newer toolchain
   - sudo apt-add-repository --yes ppa:zoogie/sdl2-snapshots       # libsdl2
   - sudo apt-key adv --keyserver keys.gnupg.net --recv-keys FFBA9E40
-  - sudo echo 'deb http://repo.nofla.me/ jessie main' >> /etc/apt/sources.list
+  - sudo apt-add-repository --yes http://repo.nofla.me/
   - export PATH=~/usr/bin:$PATH
   - echo $CXX
   - $CXX --version
