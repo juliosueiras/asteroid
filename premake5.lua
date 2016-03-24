@@ -24,7 +24,7 @@ project "Asteroid"
 		system "Windows"
 		os.mkdir("bin/media")
 		ok, err = os.copyfile("media/**", "bin/media/")
-		includedirs { "libs/windows/SDL2/include" }
+		includedirs { "$(SDL2_INCLUDE)", "$(SDL2_MIXER_INCLUDE)" , "libs/windows/SDL2/include" }
 		libdirs { "libs/windows/SDL2/lib/x86" }
 		debugdir "bin/"
 		links {
