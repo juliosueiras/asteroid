@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<index xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <struct name="Vec2" ref="Vec2#Vec2" />
+  <report name="Documentation generator" ref="report" />
+</index>
