@@ -21,7 +21,7 @@ install:
   - cd premake-5.0.0-alpha6/build/gmake.unix
   - make config=release
   - cd ../../..
-  - mv premake-5.0.0-alpha8/bin/release/premake5 premake5
+  - mv premake-5.0.0-alpha6/bin/release/premake5 premake5
 
 script:
   - ./premake5 gmake
