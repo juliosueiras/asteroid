@@ -4,8 +4,7 @@ sudo: true
 before_install:
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test     # newer toolchain
   - sudo apt-add-repository --yes ppa:zoogie/sdl2-snapshots       # libsdl2
-  - sudo apt-key adv --keyserver keys.gnupg.net --recv-keys FFBA9E40
-  - sudo add-apt-repository "deb http://repo.nofla.me/ jessie main"
+  - sudo apt-add-repository --yes ppa:pasgui/ubuntu
   - export PATH=~/usr/bin:$PATH
   - echo $CXX
   - $CXX --version
