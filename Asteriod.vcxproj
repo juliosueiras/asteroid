@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4006CE22-2CD3-282E-55EC-16D641185EBC}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Asteriod</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\</OutDir>
+    <IntDir>bin\obj\Debug\</IntDir>
+    <TargetName>Asteriod</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\</OutDir>
+    <IntDir>bin\obj\Release\</IntDir>
+    <TargetName>Asteriod</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>include;libs\windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>libs\windows\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(SolutionDir)libs\windows\SDL2\lib\x86\SDL2.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\SDL2.dll" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\SDL2.dll" "bin" &gt; nul)
+IF EXIST "$(SolutionDir)libs\windows\SDL2\lib\x86\lib*.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\lib*.dll" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\lib*.dll" "bin" &gt; nul)
+IF EXIST "$(SolutionDir)libs\windows\SDL2\lib\x86\zlib1.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\zlib1.dll" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\zlib1.dll" "bin" &gt; nul)
+IF EXIST "$(SolutionDir)media"\ (xcopy /Q /E /Y /I "$(SolutionDir)media" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)media" "bin" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>include;libs\windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>libs\windows\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(SolutionDir)libs\windows\SDL2\lib\x86\SDL2.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\SDL2.dll" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\SDL2.dll" "bin" &gt; nul)
+IF EXIST "$(SolutionDir)libs\windows\SDL2\lib\x86\lib*.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\lib*.dll" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\lib*.dll" "bin" &gt; nul)
+IF EXIST "$(SolutionDir)libs\windows\SDL2\lib\x86\zlib1.dll"\ (xcopy /Q /E /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\zlib1.dll" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)libs\windows\SDL2\lib\x86\zlib1.dll" "bin" &gt; nul)
+IF EXIST "$(SolutionDir)media"\ (xcopy /Q /E /Y /I "$(SolutionDir)media" "bin" &gt; nul) ELSE (xcopy /Q /Y /I "$(SolutionDir)media" "bin" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Animation.h" />
+    <ClInclude Include="include\Enemy.h" />
+    <ClInclude Include="include\Explosion.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Missile.h" />
+    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Random.h" />
+    <ClInclude Include="include\System.h" />
+    <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\Timer.h" />
+    <ClInclude Include="include\Vec2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\Explosion.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Missile.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Random.cpp" />
+    <ClCompile Include="src\System.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Vec2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="media\alien.png" />
+    <None Include="media\explosion.tga" />
+    <None Include="media\shot.png" />
+    <None Include="media\shot2.png" />
+    <None Include="media\shuttle.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

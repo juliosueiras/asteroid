@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Animation</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="styles/cldoc.css">
+</head>
+
+<body id="cldoc">
+    <div id="cldoc_sidebar">
+        <div id="cldoc_sidebar_items">
+            <div class="back">
+                <div class="name"><span><span class="keyword">Class</span><span>Animation</span></span>
+                </div><a href="index.html"><span class="arrow">↵</span> <span>Index</span></a></div>
+            <div id="cldoc_sidebar_pagenav"></div>
+            <div class="subtitle">Constructors</div>
+            <ul>
+                <li><a href="#Animation.Animation">Animation<span class="counter"></span></a>
+                    <div class="brief">
+                        <p> The main constructor of Animation</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="subtitle">Destructors</div>
+            <ul>
+                <li><a href="#Animation.~Animation">~Animation<span class="counter"></span></a>
+                    <div class="brief">
+                        <p> The main destructor</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="subtitle">Member Functions</div>
+            <ul>
+                <li><a href="#Animation.AddTime">AddTime<span class="counter"></span></a>
+                    <div class="brief">
+                        <p> Add time to the animation</p>
+                    </div>
+                </li>
+                <li><a href="#Animation.CellHeight">CellHeight<span class="counter"></span></a>
+                    <div class="brief">
+                        <p> Cell Height of the animation</p>
+                    </div>
+                </li>
+                <li><a href="#Animation.CellWidth">CellWidth<span class="counter"></span></a>
+                    <div class="brief">
+                        <p> Cell Width of the animation</p>
+                    </div>
+                </li>
+                <li><a href="#Animation.DrawCurrentCell">DrawCurrentCell<span class="counter"></span></a>
+                    <div class="brief">
+                        <p> Draw Current Cell of the animation</p>
+                    </div>
+                </li>
+                <li><a href="#Animation.FinishedPlaying">FinishedPlaying<span class="counter"></span></a>
+                    <div class="brief">
+                        <p> Is the animation finished playing</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="cldoc_content">
+        <h1 id="Animation"><span><span class="keyword">Class</span><span>Animation</span></span></h1>
+        <div class="description">
+            <div class="doc">
+                <p>is to be used with explosion</p>
+            </div>
+        </div>
+        <h2 data-cldoc-dynamic="1" id="constructors">Constructors</h2>
+        <div class="constructors">
+            <div class="function">
+                <div class="declaration" id="Animation::Animation">
+                    <table class="declaration">
+                        <tbody>
+                            <tr>
+                                <td class="identifier">Animation</td>
+                                <td class="open_paren">(</td>
+                                <td class="argument_type"><span class="type"><span class="name "><a href="Texture.html#Texture">Texture</a></span><span class="qualifier">  <span class="keyword">const</span> *</span>
+                                    </span>
+                                </td>
+                                <td class="argument_name">tex,</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td class="argument_type"><span class="type"><span class="name builtin">int</span></span>
+                                </td>
+                                <td class="argument_name">numCells,</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td class="argument_type"><span class="type"><span class="name builtin">float</span></span>
+                                </td>
+                                <td class="argument_name">duration,</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td class="argument_type"><span class="type"><span class="name builtin">bool</span></span>
+                                </td>
+                                <td class="argument_name">loopable</td>
+                                <td class="close_paren">)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="brief">
+                    <p> The main constructor of Animation</p>
+                </div>
+                <table class="arguments">
+                    <tbody>
+                        <tr id="Animation::Animation::tex">
+                            <td>tex</td>
+                            <td>
+                                <div class="doc">
+                                    <p>the Texture</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="Animation::Animation::numCells">
+                            <td>numCells</td>
+                            <td>
+                                <div class="doc">
+                                    <p>Number of Cells</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="Animation::Animation::duration">
+                            <td>duration</td>
+                            <td>
+                                <div class="doc">
+                                    <p>Duration of the animation</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="Animation::Animation::loopable">
+                            <td>loopable</td>
+                            <td>
+                                <div class="doc">
+                                    <p>is the animation loopable</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2 data-cldoc-dynamic="1" id="destructors">Destructors</h2>
+        <div class="destructors">
+            <div class="function">
+                <div class="declaration" id="Animation::~Animation">
+                    <table class="declaration">
+                        <tbody>
+                            <tr>
+                                <td class="identifier">~Animation</td>
+                                <td class="open_paren">(</td>
+                                <td colspan="2"></td>
+                                <td class="close_paren">)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="brief">
+                    <p> The main destructor</p>
+                </div>
+                <table class="arguments"></table>
+            </div>
+        </div>
+        <h2 data-cldoc-dynamic="1" id="member functions">Member Functions</h2>
+        <div class="member_functions">
+            <div class="function">
+                <div class="declaration" id="Animation::AddTime">
+                    <div class="return_type"><span class="type"><span class="name builtin">void</span></span>
+                    </div>
+                    <table class="declaration">
+                        <tbody>
+                            <tr>
+                                <td class="identifier">AddTime</td>
+                                <td class="open_paren">(</td>
+                                <td class="argument_type"><span class="type"><span class="name builtin">float</span></span>
+                                </td>
+                                <td class="argument_name">dt</td>
+                                <td class="close_paren">)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="brief">
+                    <p> Add time to the animation</p>
+                </div>
+                <table class="arguments">
+                    <tbody>
+                        <tr id="Animation::AddTime::dt">
+                            <td>dt</td>
+                            <td>
+                                <div class="doc">
+                                    <p>duration of time</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="function">
+                <div class="declaration" id="Animation::CellHeight">
+                    <div class="return_type"><span class="type"><span class="name builtin">int</span></span>
+                    </div>
+                    <table class="declaration">
+                        <tbody>
+                            <tr>
+                                <td class="identifier">CellHeight</td>
+                                <td class="open_paren">(</td>
+                                <td colspan="2"></td>
+                                <td class="close_paren">)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="brief">
+                    <p> Cell Height of the animation</p>
+                </div>
+                <table class="arguments">
+                    <tbody>
+                        <tr class="return">
+                            <td class="keyword">return</td>
+                            <td>
+                                <div class="doc">
+                                    <p>the cell height</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="function">
+                <div class="declaration" id="Animation::CellWidth">
+                    <div class="return_type"><span class="type"><span class="name builtin">int</span></span>
+                    </div>
+                    <table class="declaration">
+                        <tbody>
+                            <tr>
+                                <td class="identifier">CellWidth</td>
+                                <td class="open_paren">(</td>
+                                <td colspan="2"></td>
+                                <td class="close_paren">)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="brief">
+                    <p> Cell Width of the animation</p>
+                </div>
+                <table class="arguments">
+                    <tbody>
+                        <tr class="return">
+                            <td class="keyword">return</td>
+                            <td>
+                                <div class="doc">
+                                    <p>the cell width</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="function">
+                <div class="declaration" id="Animation::DrawCurrentCell">
+                    <div class="return_type"><span class="type"><span class="name builtin">void</span></span>
+                    </div>
+                    <table class="declaration">
+                        <tbody>
+                            <tr>
+                                <td class="identifier">DrawCurrentCell</td>
+                                <td class="open_paren">(</td>
+                                <td class="argument_type"><span class="type"><span class="name ">SDL_Renderer</span><span class="qualifier"> *</span></span>
+                                </td>
+                                <td class="argument_name">renderer,</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td class="argument_type"><span class="type"><span class="name ">SDL_Rect</span><span class="qualifier">  <span class="keyword">const</span> *</span>
+                                    </span>
+                                </td>
+                                <td class="argument_name">dstRect</td>
+                                <td class="close_paren">)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="brief">
+                    <p> Draw Current Cell of the animation</p>
+                </div>
+                <table class="arguments">
+                    <tbody>
+                        <tr id="Animation::DrawCurrentCell::renderer">
+                            <td>renderer</td>
+                            <td>
+                                <div class="doc">
+                                    <p>SDL renderer</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="Animation::DrawCurrentCell::dstRect">
+                            <td>dstRect</td>
+                            <td>
+                                <div class="doc">
+                                    <p>SDL rect</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="function">
+                <div class="declaration" id="Animation::FinishedPlaying">
+                    <div class="return_type"><span class="type"><span class="name builtin">bool</span></span>
+                    </div>
+                    <table class="declaration">
+                        <tbody>
+                            <tr>
+                                <td class="identifier">FinishedPlaying</td>
+                                <td class="open_paren">(</td>
+                                <td colspan="2"></td>
+                                <td class="close_paren">)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="brief">
+                    <p> Is the animation finished playing</p>
+                </div>
+                <table class="arguments">
+                    <tbody>
+                        <tr class="return">
+                            <td class="keyword">return</td>
+                            <td>
+                                <div class="doc">
+                                    <p>the boolean of animation finishedPlaying state</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<!-- vi:ts=2:et -->

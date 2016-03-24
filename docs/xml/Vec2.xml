@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<struct id="Vec2" name="Vec2" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <field id="Vec2::x" name="x">
+    <type builtin="yes" name="float" />
+  </field>
+  <field id="Vec2::y" name="y">
+    <type builtin="yes" name="float" />
+  </field>
+  <constructor id="Vec2::Vec2" name="Vec2" />
+  <constructor id="Vec2::Vec2" name="Vec2">
+    <argument id="Vec2::Vec2::x" name="x">
+      <type builtin="yes" name="float" />
+    </argument>
+    <argument id="Vec2::Vec2::y" name="y">
+      <type builtin="yes" name="float" />
+    </argument>
+  </constructor>
+  <function id="Distance" name="Distance">
+    <return>
+      <type builtin="yes" name="float" />
+    </return>
+    <argument id="Distance::a" name="a">
+      <type name="Vec2" qualifier=" const &amp;" ref="Vec2#Vec2" />
+    </argument>
+    <argument id="Distance::b" name="b">
+      <type name="Vec2" qualifier=" const &amp;" ref="Vec2#Vec2" />
+    </argument>
+  </function>
+  <function id="DistanceSquared" name="DistanceSquared">
+    <return>
+      <type builtin="yes" name="float" />
+    </return>
+    <argument id="DistanceSquared::a" name="a">
+      <type name="Vec2" qualifier=" const &amp;" ref="Vec2#Vec2" />
+    </argument>
+    <argument id="DistanceSquared::b" name="b">
+      <type name="Vec2" qualifier=" const &amp;" ref="Vec2#Vec2" />
+    </argument>
+  </function>
+</struct>
