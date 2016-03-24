@@ -17,10 +17,10 @@ install:
   # premake5
   - wget https://github.com/premake/premake-core/releases/download/v5.0.0-alpha8/premake-5.0.0-alpha8-src.zip -O premake.zip
   - unzip premake.zip
-  - cd premake-5.0.0-alpha6/build/gmake.unix
+  - cd premake-5.0.0-alpha8/build/gmake.unix
   - make config=release
   - cd ../../..
-  - mv premake-5.0.0-alpha6/bin/release/premake5 premake5
+  - mv premake-5.0.0-alpha8/bin/release/premake5 premake5
 script:
   - ../premake5 gmake
   - make
