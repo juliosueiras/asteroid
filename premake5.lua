@@ -1,8 +1,8 @@
 -- premake5.lua
-workspace "Asteriod"
+workspace "Asteroid"
 	configurations { "Debug", "Release" }
 
-project "Asteriod"
+project "Asteroid"
 	kind "ConsoleApp"
 	language "C++"
 	targetdir "bin"
