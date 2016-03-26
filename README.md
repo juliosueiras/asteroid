@@ -1,4 +1,4 @@
-# astriod
+# Asteroid Project
 Final Project of Game Engineering (Sheridan College Winter 2016)
 
 | Linux | Window |
