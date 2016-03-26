@@ -14,11 +14,13 @@ project "Asteroid"
 
 	filter "action:gmake"
 		system "Linux"
-		os.mkdir("bin/media")
-		ok, err = os.copyfile("media/**", "bin/media/")
 		flags { "Symbols" }
 		buildoptions { "`pkg-config --cflags sdl2`" }
 		linkoptions { "`pkg-config --libs sdl2`", "`pkg-config --libs SDL2_image`"}
+
+        postbuildcommands {
+			'{COPY} "media" "%{cfg.targetdir}"'
+        }
 
 	filter "action:vs2013"
 		system "Windows"
@@ -32,6 +34,7 @@ project "Asteroid"
 			"SDL2main",
 			"SDL2_image"
 		}
+
 		postbuildcommands {
 			-- Copy the SDL2 dll to the Bin folder.
 			'{COPY} "%{wks.location}libs/windows/SDL2/lib/x86/SDL2.dll" "%{cfg.targetdir}"',
