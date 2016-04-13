@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "System.h"
 #include "Timer.h"
 #include "Game.h"
@@ -113,7 +112,6 @@ namespace System
 
 int main(int argc, char** argv)
 {
-    std::cout << "Hello" << std::endl;
 
     //
     // initialize SDL
@@ -213,6 +211,13 @@ int main(int argc, char** argv)
                 break;
             case SDL_KEYUP:
                 game.OnKeyUp(e.key);
+				if (e.key.keysym.sym == SDLK_p) {
+					g_IsPaused = !g_IsPaused;
+				}
+				else if (e.key.keysym.sym == SDLK_r){
+					game.Shutdown();
+					game.Initialize();
+				}
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 game.OnMouseDown(e.button);
@@ -255,6 +260,11 @@ int main(int argc, char** argv)
         if (!g_IsPaused) {
             game.Update(g_TimeSinceLastFrame);
         }
+
+		if (game.isGameOver()){
+			game.Shutdown();
+			game.Initialize();
+		}
     }
    
     //

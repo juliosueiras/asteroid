@@ -1,5 +1,4 @@
 #include <cmath>
-
 #include "Vec2.h"
 
 float Distance(const Vec2& a, const Vec2& b)

@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "Player.h"
 #include "System.h"
 
@@ -7,7 +6,7 @@ Player::Player(const Vec2& pos, const Texture* tex)
     : mTex(tex)
     , mCenter(pos)
     , mSpeed(100.0f)        // pixels/second
-	, isDead(false)
+	, mDead(false)
 {
 }
 
@@ -36,6 +35,9 @@ void Player::Update(float dt)
 
 void Player::Draw(SDL_Renderer* renderer) const
 {
+
+	if (mDead) return;
+
     // check if we have a valid texture
     if (mTex) {
 

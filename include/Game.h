@@ -2,38 +2,38 @@
 #define GAME_H_
 
 #include <SDL.h>
-
 #include <vector>
-
 #include "System.h"
 #include "Player.h"
+#include "Explosion.h"
 #include "Enemy.h"
 #include "Missile.h"
-#include "Explosion.h"
-#include "Random.h"
 
 class Game
 {
     Texture*                mShuttleTex;
-    Texture*                mEnemyTex;
     Texture*                mShotTex;
-    Texture*                mShot2Tex;
-    Texture*                mExplosionTex;
+	Texture*				mShot2Tex;
+	Texture*				mEnemyTex;
+	Texture*				mExplosionTex;
 
     Player*				    mPlayer;
-	
-	std::vector<Enemy*>     mEnemies;
-
-    std::vector<Missile*>   mEnemyMissiles;
 
     std::vector<Missile*>   mMissiles;
+	std::vector<Missile*>   mEnemyMissiles;
+	std::vector<Enemy*>		mEnemies;
+	std::vector<Explosion*>	mExplosions;
 
-    std::vector<Explosion*>   mExplosions;
 
-    float                   mMinSpawnDelay;
-    float                   mMaxSpawnDelay;
+	float                   mMinSpawnDelay;
+	float                   mMaxSpawnDelay;
+	float                   mMinSpawnDelay1;
+	float                   mMaxSpawnDelay2;
+	float                   mNextSpawnTime;
+	float                   mNextSpawnTime2;
 
-    float                   mNextSpawnTime;
+	bool					mGameOver;
+
 
 public:
                             Game();
@@ -42,15 +42,7 @@ public:
     bool				    Initialize();
     void				    Shutdown();
 
-	/* Update method of the Game
-	 * @dt no ideal what is that
-	 *
-	 * Update every frame of the game(including refresh enemy, player, missle, and explosion)
-	 */
     void				    Update(float dt);
-
-    void				    Reset();
-
     void				    Draw(SDL_Renderer* renderer);
     
     void				    OnWindowResized(int w, int h);
@@ -64,6 +56,9 @@ public:
     float                   WorldRight() const      { return (float)System::GetWindowWidth(); }
     float                   WorldTop() const        { return 0.0f; }
     float                   WorldBottom() const     { return (float)System::GetWindowHeight(); }
+
+	bool					isGameOver() const		{ return mGameOver; }
+	void					SetGameOver(bool isGameOver)	{ mGameOver = isGameOver; }
 };
 
 #endif

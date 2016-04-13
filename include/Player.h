@@ -9,7 +9,7 @@ class Player
     const Texture*          mTex;
     Vec2                    mCenter;
     float                   mSpeed;
-	bool                    isDead;
+	bool					mDead;
 
 public:
                             Player(const Vec2& pos, const Texture* tex);
@@ -25,6 +25,9 @@ public:
     float                   Width() const                   { return (float)mTex->GetWidth(); }
     float                   Height() const                  { return (float)mTex->GetHeight(); }
 
+	void					SetDead(bool isDead)			{ mDead = isDead;  }
+	bool					isDead() const					{ return mDead; }
+
     float                   Left() const                    { return mCenter.x - 0.5f * Width(); }
     float                   Right() const                   { return mCenter.x + 0.5f * Width(); }
     float                   Top() const                     { return mCenter.y - 0.5f * Height(); }
@@ -38,9 +41,6 @@ public:
     void					Update(float dt);
 
     void					Draw(SDL_Renderer* renderer) const;
-
-    bool                    IsDead()                		{ return isDead; }
-	void                    IsDead(bool b)              	{  isDead = b; }
 };
 
 #endif

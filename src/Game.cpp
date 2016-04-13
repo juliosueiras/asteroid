@@ -1,8 +1,6 @@
 #include <iostream>
-
 #include "Game.h"
-
-int lastTime = 0, currentTime;
+#include "Random.h"
 
 Game::Game()
 	: mShuttleTex(NULL)
@@ -15,52 +13,58 @@ Game::Game()
 	, mEnemyMissiles()
 	, mEnemies()
 	, mExplosions()
+	, mMinSpawnDelay(0.0f)
+	, mMaxSpawnDelay(0.0f)
+	, mMinSpawnDelay1(0.0f)
+	, mMaxSpawnDelay2(0.0f)
+	, mNextSpawnTime(0.0f)
+	, mNextSpawnTime2(0.0f)
+	, mGameOver(false)
 {
-	// nothing to do: all setup should be done in Initialize method
+    // Nothing to do: all setup should be done in Initialize method
 }
 
 Game::~Game()
 {
-	// nothing to do: all cleanup should be done in Shutdown method
+    // Nothing to do: all cleanup should be done in Shutdown method
 }
 
 bool Game::Initialize()
 {
-	std::cout << "Initializing game" << std::endl;
+    std::cout << "Initializing game" << std::endl;
+	std::cout << "PRESS R TO RESTART" << std::endl;
+	std::cout << "PRESS ESC TO QUIT" << std::endl;
 
-	// set some window properties
-	System::SetWindowSize(480, 640);
-	System::SetWindowTitle("Space Shootah!");
+    // Set some window properties
+    System::SetWindowSize(480, 640);
+    System::SetWindowTitle("MIDTERM 2016 OP VERSION!!!");
 
-	// get renderer
-	SDL_Renderer* renderer = System::GetRenderer();
-	//
-	// load all textures
-	//
-	mShuttleTex = Texture::Load("media/shuttle.png", renderer);
-	if (!mShuttleTex) {
-		std::cerr << "*** Failed to load shuttle texture" << std::endl;
-		return false;
-	}
+    // Get renderer
+    SDL_Renderer* renderer = System::GetRenderer();
 
+    //
+    // Load all textures
+    //
+    mShuttleTex = Texture::Load("media/shuttle.png", renderer);
+    if (!mShuttleTex) {
+        std::cerr << "*** Failed to load shuttle texture" << std::endl;
+        return false;
+    }
 	mEnemyTex = Texture::Load("media/alien.png", renderer);
 	if (!mEnemyTex) {
-		std::cerr << "*** Failed to load alien texture" << std::endl;
+		std::cerr << "*** Failed to load enemy texture" << std::endl;
 		return false;
 	}
-
-	mShotTex = Texture::Load("media/shot.png", renderer);
-	if (!mShotTex) {
-		std::cerr << "*** Failed to load shot texture" << std::endl;
-		return false;
-	}
-
+    mShotTex = Texture::Load("media/shot.png", renderer);
+    if (!mShotTex) {
+        std::cerr << "*** Failed to load shot texture" << std::endl;
+        return false;
+    }
 	mShot2Tex = Texture::Load("media/shot2.png", renderer);
-	if (!mShotTex) {
+	if (!mShot2Tex) {
 		std::cerr << "*** Failed to load shot2 texture" << std::endl;
 		return false;
 	}
-
 	mExplosionTex = Texture::Load("media/explosion.tga", renderer);
 	if (!mExplosionTex) {
 		std::cerr << "*** Failed to load explosion texture" << std::endl;
@@ -68,377 +72,389 @@ bool Game::Initialize()
 	}
 
 	//
-	// spawn player
+	// Initialize random number generator
 	//
-
-	Vec2 spawnPos;
-	spawnPos.x = 0.5f * System::GetWindowWidth();
-	spawnPos.y = 0.75f * System::GetWindowHeight();
-
-
 	InitRandom();
 
-	mPlayer = new Player(spawnPos, mShuttleTex);
-
-	mPlayer->SetSpeed(150.0f);
-
-	mMinSpawnDelay = 0.1f;
+	//
+	// Initialize spawner
+	//
+	mMinSpawnDelay = 2.0f;
 	mMaxSpawnDelay = 1.5f;
+	mMinSpawnDelay1 = 0.2f;
+	mMaxSpawnDelay2 = 1.0f;
 	mNextSpawnTime = System::GetTime() + 1.0f;
+	mNextSpawnTime2 = System::GetTime() + 1.0f;
 
+
+    //
+    // Spawn player
+    //
+    Vec2 spawnPos;
+    spawnPos.x = 0.5f * System::GetWindowWidth();
+    spawnPos.y = 0.75f * System::GetWindowHeight();
+
+    mPlayer = new Player(spawnPos, mShuttleTex);
+
+    mPlayer->SetSpeed(190.0f);
 	return true;
 }
 
 void Game::Shutdown()
 {
-	std::cout << "Shutting down game" << std::endl;
+    std::cout << "Shutting down game" << std::endl;
 
-	//
-	// delete all entities
-	//
+    //
+    // Delete all entities
+    //
+    delete mPlayer;
 
-	// delete player
-	delete mPlayer;
+    for (unsigned i = 0; i < mMissiles.size(); i++) {
+        delete mMissiles[i];
+    }
+    mMissiles.clear();
 
-	// delete enemy
-	for (unsigned i = 0; i < mEnemies.size(); i++) {
-		delete mEnemies[i];
-	}
-	mEnemies.clear();
-
-	// delete missiles
-	for (unsigned i = 0; i < mMissiles.size(); i++) {
-		delete mMissiles[i];
-	}
-	mMissiles.clear();
-
-	// delete enemy missiles
 	for (unsigned i = 0; i < mEnemyMissiles.size(); i++) {
 		delete mEnemyMissiles[i];
 	}
 	mEnemyMissiles.clear();
 
-	// delete all explosion
+	for (unsigned i = 0; i < mEnemies.size(); i++) {
+		delete mEnemies[i];
+	}
+	mEnemies.clear();
+
 	for (unsigned i = 0; i < mExplosions.size(); i++) {
 		delete mExplosions[i];
 	}
 	mExplosions.clear();
 
-	//
-	// destroy all textures
-	//
-	Texture::Destroy(mShuttleTex);
-	Texture::Destroy(mEnemyTex);
-	Texture::Destroy(mShotTex);
+    //
+    // Destroy all textures
+    //
+    Texture::Destroy(mShuttleTex);
+    Texture::Destroy(mShotTex);
 	Texture::Destroy(mShot2Tex);
+	Texture::Destroy(mEnemyTex);
 	Texture::Destroy(mExplosionTex);
+
+	mGameOver = false;
 }
 
 void Game::Draw(SDL_Renderer* renderer)
 {
-	// clear the screen
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
+    // Clear the screen
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
 
-	// draw missiles
-	for (unsigned i = 0; i < mMissiles.size(); i++) {
-		mMissiles[i]->Draw(renderer);
-	}
+    // Draw missiles
+    for (unsigned i = 0; i < mMissiles.size(); i++) {
+        mMissiles[i]->Draw(renderer);
+    }
 
-	// draw enemy missiles
+	// Draw enemy missiles
 	for (unsigned i = 0; i < mEnemyMissiles.size(); i++) {
 		mEnemyMissiles[i]->Draw(renderer);
 	}
-
-	// draw enemies
+	
+	// Draw ememies
 	for (unsigned i = 0; i < mEnemies.size(); i++) {
 		mEnemies[i]->Draw(renderer);
 	}
 
-	// draw explosions
+	// Draw explosion
 	for (unsigned i = 0; i < mExplosions.size(); i++) {
 		mExplosions[i]->Draw(renderer);
 	}
 
-	// draw player
-	if(!mPlayer->IsDead()) {
-		mPlayer->Draw(renderer);
-	}
-
+    // Draw player
+    mPlayer->Draw(renderer);
 }
 
 void Game::Update(float dt)
 {
-	//std::cout << dt << std::endl;
-
-	// get world bounds
+	// Get world bounds
 	float worldLeft = WorldLeft();
 	float worldRight = WorldRight();
 	float worldTop = WorldTop();
 	float worldBottom = WorldBottom();
 
+	// Update player
+	mPlayer->Update(dt);
 
+	// Keep the player within world bounds
+	if (mPlayer->Left() < worldLeft) {
+		mPlayer->SetLeft(worldLeft);
+	}
+	else if (mPlayer->Right() > worldRight) {
+		mPlayer->SetRight(worldRight);
+	}
+	if (mPlayer->Top() < worldTop) {
+		mPlayer->SetTop(worldTop);
+	}
+	else if (mPlayer->Bottom() > worldBottom) {
+		mPlayer->SetBottom(worldBottom);
+	}
+
+	// Update enemies out of bounds & hit collision against player
+	// Update enemy explosions
+	for (unsigned i = 0; i < mEnemies.size();) {
+		Enemy* e = mEnemies[i];
+		e->Update(dt);
+
+		float distance = Distance(e->Center(), mPlayer->Center());
+
+		if (e->Left() > worldRight || e->Right() < worldLeft || e->Top() > worldBottom || e->Bottom() < worldTop) {
+			delete e;
+			mEnemies[i] = mEnemies.back();
+			mEnemies.pop_back();
+		}
+		else if (distance < 60 && !mPlayer->isDead()){
+
+			float explosionX = e->Center().x;
+			float explosionY = e->Center().y;
+
+			delete e;
+			mEnemies[i] = mEnemies.back();
+			mEnemies.pop_back();
+
+			Explosion* enemyExplosion = new Explosion(Vec2(explosionX, explosionY), mExplosionTex, 1.5f, 1.0f);
+			mExplosions.push_back(enemyExplosion);
+
+			explosionX = mPlayer->Center().x;
+			explosionY = mPlayer->Center().y;
+			Explosion* enemyExplosion2 = new Explosion(Vec2(explosionX, explosionY), mExplosionTex, 3.0f, 1.5f);
+			mExplosions.push_back(enemyExplosion2);
+
+			mPlayer->SetDead(true);
+		}
+		else {
+			i++;
+		}
+	}
+
+	// Is it time to spawn new enemy?
 	float t = System::GetTime();
-
-	// is it time to spawn next effect?
 	if (t >= mNextSpawnTime) {
 
-		Enemy* enemy = new Enemy(Vec2(RandomInt(System::GetWindowWidth()),worldTop), mEnemyTex);
-		enemy->SetVelocity(0.0f, 200.0f);
-		mEnemies.push_back(enemy);
+		// Generate random position, scale, and duration
+		float x = RandomFloat(WorldLeft(), WorldRight());
+		float y = RandomFloat(WorldTop(), WorldBottom());
+		float scale = RandomFloat(0.75f, 2.0f);
+		float duration = RandomFloat(5.0f, 5.0f);
 
-		// set next spawn time
+		// Initializing enemy spawn
+		int enemyStartXPos = rand() % 480;
+		int randomX = RandomInt(40, 45);
+
+		if (enemyStartXPos >= 440){
+			enemyStartXPos = enemyStartXPos - randomX;
+		}
+		else if (enemyStartXPos <= 30){
+			enemyStartXPos = enemyStartXPos + randomX;
+		}
+
+		Vec2 enemyStartVec = Vec2(enemyStartXPos, 0);
+
+		// Create new enemy
+		Enemy* e = new Enemy(enemyStartVec, mEnemyTex);
+		float speed = RandomFloat(30, 70);
+		e->SetVelocity(0.0f, speed);
+
+		// Add enemy to our list
+		mEnemies.push_back(e);
+
+		// Set next spawn time
 		mNextSpawnTime = t + RandomFloat(mMinSpawnDelay, mMaxSpawnDelay);
 	}
 
-	// update player
-	if(!mPlayer->IsDead()){
 
-		mPlayer->Update(dt);
-
-		// keep the player within world bounds
-		if (mPlayer->Left() < worldLeft) {
-			mPlayer->SetLeft(worldLeft);
-		} else if (mPlayer->Right() > worldRight) {
-			mPlayer->SetRight(worldRight);
-		}
-		if (mPlayer->Top() < worldTop) {
-			mPlayer->SetTop(worldTop);
-		} else if (mPlayer->Bottom() > worldBottom) {
-			mPlayer->SetBottom(worldBottom);
-		}
-   	}
-
-
-	// detect collision with missle and enemies
-	for (unsigned i = 0; i < mMissiles.size();   ) {
+	// Update player missiles
+	for (unsigned i = 0; i < mMissiles.size();) {
 		Missile* m = mMissiles[i];
 
-		// update missile
 		m->Update(dt);
 
-		for (unsigned j = 0; j < mEnemies.size();   ) {
-			Enemy* enemy = mEnemies[j];
-
-			// detect if missle collide with a enemy
-			if (Distance(m->Center(), enemy->Center()) < 35) {
-
-				// create explosion
-				Explosion* e = new Explosion(m->Center(), mExplosionTex, 1.5, 0.5);
-				mExplosions.push_back(e);
-
-				// remove both missle and enemy
-				delete m;
-				mMissiles[i] = mMissiles.back(); mMissiles.pop_back();
-
-				delete enemy;
-				mEnemies[j] = mEnemies.back();
-				mEnemies.pop_back();
-			} else {
-				// missile is still within world bounds: keep it and move on to the next one
-				++j;
-			}
-		}
-
-		++i;
-	}
-
-	// update missiles
-	for (unsigned i = 0; i < mMissiles.size();   ) {
-		Missile* m = mMissiles[i];
-
-		// update missile
-		m->Update(dt);
-
-		// remove the missile if it went off screen
+		// Remove the missile if it went off screen
 		if (m->Left() > worldRight || m->Right() < worldLeft || m->Top() > worldBottom || m->Bottom() < worldTop) {
-			// missile is out of world bounds: remove it
+			// Missile is out of world bounds: remove it
 			delete m;
 			mMissiles[i] = mMissiles.back();
 			mMissiles.pop_back();
-		} else {
-			// missile is still within world bounds: keep it and move on to the next one
+		}
+		else {
+			// Missile is still within world bounds: keep it and move on to the next one
 			++i;
 		}
 	}
 
-	// detect collision with missle and enemy missle
-	for (unsigned i = 0; i < mMissiles.size();   ) {
-		Missile* m = mMissiles[i];
+	// Update enemy missiles 
+	for (unsigned i = 0; i < mEnemyMissiles.size();) {
+		Missile* m = mEnemyMissiles[i];
 
-		// update missile
 		m->Update(dt);
 
-		for (unsigned j = 0; j < mEnemyMissiles.size();   ) {
-			Missile* enemyM= mEnemyMissiles[j];
+		// Remove the missile if it went off screen
+		if (m->Left() > worldRight || m->Right() < worldLeft || m->Top() > worldBottom || m->Bottom() < worldTop) {
+			// Missile is out of world bounds: remove it
+			delete m;
+			mEnemyMissiles[i] = mEnemyMissiles.back();
+			mEnemyMissiles.pop_back();
+		}
+		else {
+			// Missile is still within world bounds: keep it and move on to the next one			
+			// Also checking if player gets hit by enemy missiles
+			// Setting up collision explosion
+			float distance = Distance(mPlayer->Center(), m->Center());
 
-			// detect if missle collide with a enemy
-			if (Distance(m->Center(), enemyM->Center()) < 35) {
-
-				// create explosion for player missle
-				Explosion* e = new Explosion(m->Center(), mExplosionTex, 0.5, 0.5);
-				mExplosions.push_back(e);
-
-				// remove both missle
+			if (distance < 30){
 				delete m;
-				mMissiles[i] = mMissiles.back();
-				mMissiles.pop_back();
-
-				delete enemyM;
-				mEnemyMissiles[j] = mEnemyMissiles.back();
+				mEnemyMissiles[i] = mEnemyMissiles.back();
 				mEnemyMissiles.pop_back();
-			} else {
-				// missile is still within world bounds: keep it and move on to the next one
-				++j;
+
+				if (!mPlayer->isDead()){
+					float explosionX = mPlayer->Center().x;
+					float explosionY = mPlayer->Center().y;
+					Explosion* enemyExplosion = new Explosion(Vec2(explosionX, explosionY), mExplosionTex, 3.0f, 1.5f);
+					mExplosions.push_back(enemyExplosion);
+					mPlayer->SetDead(true);
+				}
 			}
-		}
-
-		++i;
-	}
-
-	// detect collision with player and enemies
-	for (unsigned i = 0; i < mEnemies.size();   ) {
-		Enemy* enemy = mEnemies[i];
-
-		// remove the enemy if it went off screen
-		if (Distance(enemy->Center(), mPlayer->Center()) < 58 ) {
-
-			// create explosion
-			Explosion* e = new Explosion(mPlayer->Center(), mExplosionTex, 3.0, 0.5);
-			mExplosions.push_back(e);
-
-			// remove enemy and player
-			delete enemy;
-			mEnemies[i] = mEnemies.back();
-			mEnemies.pop_back();
-
-			mPlayer->IsDead(true);
-
-			mPlayer->SetTop(System::GetWindowHeight() + 200);
-
-		} else {
-			// enemy is still within world bounds: keep it and move on to the next one
 			++i;
 		}
 	}
 
-	// update enemies
-	for (unsigned i = 0; i < mEnemies.size();   ) {
-		Enemy* enemy = mEnemies[i];
-
-		// update enemy
-		enemy->Update(dt);
-
-		float currentTime = SDL_GetTicks();
-
-		if(currentTime > lastTime + RandomInt(8000, 100)) {
-
-			Missile* missile = new Missile(mEnemies[i]->Center(), mShot2Tex);
-			missile->SetVelocity(0.0f, 200.0f);
-			mEnemyMissiles.push_back(missile);
-			lastTime = currentTime;
-
-		}
-
-		// remove the enemy if it went off screen
-		if (enemy->Left() > worldRight ||enemy->Right() < worldLeft || enemy->Top() > worldBottom || enemy->Bottom() < worldTop) {
-			// enemy is out of world bounds: remove it
-			delete enemy;
-			mEnemies[i] = mEnemies.back();
-			mEnemies.pop_back();
-		} else {
-			// enemy is still within world bounds: keep it and move on to the next one
-			++i;
-		}
-	}
-
-	// update explosions
-	for (unsigned i = 0; i < mExplosions.size(); ) {
-		Explosion* e = mExplosions[i];
-
-		// update explosion
+	// Update enemy shots from random enemies
+	for (unsigned i = 0; i < mEnemies.size(); i++) {
+		Enemy* e = mEnemies[i];
 		e->Update(dt);
 
-		// remove the explosion if it is finished
+		if (!mPlayer->isDead()){
+			if (e->Center().x > mPlayer->Left() && e->Center().x < mPlayer->Right()){
+				if (t >= mNextSpawnTime2) {
+					Missile* enemyMissile = new Missile(mEnemies[i]->Center(), mShot2Tex);
+					enemyMissile->SetVelocity(0.0f, +250.0f);
+					mEnemyMissiles.push_back(enemyMissile);
+					mNextSpawnTime2 = t + RandomFloat(mMinSpawnDelay1, mMaxSpawnDelay2);
+				}
+			}
+		}
+	} 
+
+	// Update collision if player hits enemy ship
+	// Also setting up explosion if collision happens
+	for (unsigned a = 0; a < mEnemies.size(); a++) {
+		Enemy* e = mEnemies[a];
+		e->Update(dt);
+
+		for (unsigned i = 0; i < mMissiles.size();) {
+
+			Missile* x = mMissiles[i];
+			x->Update(dt);
+
+			float distance = Distance(e->Center(), x->Center());
+
+			if (distance < 40){
+
+				float explosionX = e->Center().x;
+				float explosionY = e->Center().y;
+				Explosion* enemyExplosion = new Explosion(Vec2(explosionX, explosionY), mExplosionTex, 1.5f, 1.0f);
+				mExplosions.push_back(enemyExplosion);
+
+				delete e;
+				mEnemies[a] = mEnemies.back();
+				mEnemies.pop_back();
+
+				delete x;
+				mMissiles[i] = mMissiles.back();
+				mMissiles.pop_back();
+			}
+			else {
+				i++;
+			}
+		}
+		a++;
+	}
+
+	// Update missile on missile collision
+	// Also setting up explosion if collision happens
+	for (unsigned a = 0; a < mEnemyMissiles.size(); a++) {
+		Missile* e = mEnemyMissiles[a];
+		e->Update(dt);
+
+		for (unsigned i = 0; i < mMissiles.size();) {
+
+			Missile* x = mMissiles[i];
+			x->Update(dt);
+
+			float distance = Distance(e->Center(), x->Center());
+
+			if (distance < 10){
+
+				float explosionX = e->Center().x;
+				float explosionY = e->Center().y;
+				Explosion* enemyExplosion = new Explosion(Vec2(explosionX, explosionY), mExplosionTex, 0.9f, 0.5f);
+				mExplosions.push_back(enemyExplosion);
+
+				explosionX = x->Center().x;
+				explosionY = x->Center().y;
+				Explosion* enemyExplosion2 = new Explosion(Vec2(explosionX, explosionY), mExplosionTex, 0.9f, 0.5f);
+				mExplosions.push_back(enemyExplosion2);
+
+				delete e;
+				mEnemyMissiles[a] = mEnemyMissiles.back();
+				mEnemyMissiles.pop_back();
+
+				delete x;
+				mMissiles[i] = mMissiles.back();
+				mMissiles.pop_back();
+			}
+			else {
+				i++;
+			}
+		}
+		a++;
+	}
+
+	// Update explosions
+	for (unsigned i = 0; i < mExplosions.size();) {
+		Explosion* e = mExplosions[i];
+
+		e->Update(dt);
+
+		// Remove the explosion if it is finished
 		if (e->IsFinished()) {
 			delete e;
 			mExplosions[i] = mExplosions.back();
 			mExplosions.pop_back();
-		} else {
-			// keep current effect and move on to the next one
+		}
+		else {
+			// Keep current effect and move on to the next one
 			++i;
 		}
-	}
-
-	// update enemy missiles
-	for (unsigned i = 0; i < mEnemyMissiles.size();   ) {
-
-		Missile* m = mEnemyMissiles[i];
-
-		// update missile
-		m->Update(dt);
-
-		// remove the missile if it went off screen
-		if (m->Left() > worldRight || m->Right() < worldLeft || m->Top() > worldBottom || m->Bottom() < worldTop) {
-			// missile is out of world bounds: remove it
-			delete m;
-			mEnemyMissiles[i] = mEnemyMissiles.back();
-			mEnemyMissiles.pop_back();
-		} else {
-			// missile is still within world bounds: keep it and move on to the next one
-			++i;
-		}
-	}
-
-	// detect collision with enemy missle and player
-	for (unsigned i = 0; i < mEnemyMissiles.size();   ) {
-		Missile* m = mEnemyMissiles[i];
-
-		// update missile
-		m->Update(dt);
-
-		// detect if enemy missle collide with player
-		if (Distance(m->Center(), mPlayer->Center()) < 35) {
-
-			// create explosion
-			Explosion* e = new Explosion(mPlayer->Center(), mExplosionTex, 3.0, 0.5);
-			mExplosions.push_back(e);
-			// remove both missle and enemy
-			delete m;
-			mEnemyMissiles[i] = mEnemyMissiles.back();
-			mEnemyMissiles.pop_back();
-
-			mPlayer->IsDead(true);
-
-			mPlayer->SetTop(System::GetWindowHeight() + 200);
-		} else {
-			++i;
-		}
-
 	}
 }
 
 void Game::OnKeyDown(const SDL_KeyboardEvent& kbe)
 {
-	switch (kbe.keysym.sym) {
-		case SDLK_ESCAPE:
-			// tell the system that we want to quit
-			System::Quit();
-			break;
+    switch (kbe.keysym.sym) {
+    case SDLK_ESCAPE:
+        // Tell the system that we want to quit
+        System::Quit();
+        break;
 
-		case SDLK_SPACE:
-			// fire a missile
-			{
-				Missile* missile = new Missile(mPlayer->Center(), mShotTex);
-				missile->SetVelocity(0.0f, -400.0f);
-				mMissiles.push_back(missile);
-				break;
+    case SDLK_SPACE:
+        // Fire a missile
+        {
+			if (!mPlayer->isDead()){
+
+            Missile* missile = new Missile(mPlayer->Center(), mShotTex);
+            missile->SetVelocity(0.0f, -350.0f);
+            mMissiles.push_back(missile);
 			}
-		case SDLK_r:
-			{
-				Game::Reset();
-			}
-	}
+            break;
+        }
+    }
 }
 
 void Game::OnKeyUp(const SDL_KeyboardEvent& kbe)
@@ -459,44 +475,5 @@ void Game::OnMouseMotion(const SDL_MouseMotionEvent& mme)
 
 void Game::OnWindowResized(int w, int h)
 {
-	std::cout << "Window resized to " << w << 'x' << h << std::endl;
-}
-
-void Game::Reset()
-{
-	//
-	// delete all entities
-	//
-
-	// delete enemy
-	for (unsigned i = 0; i < mEnemies.size(); i++) {
-		delete mEnemies[i];
-	}
-	mEnemies.clear();
-
-	// delete missiles
-	for (unsigned i = 0; i < mMissiles.size(); i++) {
-		delete mMissiles[i];
-	}
-	mMissiles.clear();
-
-	// delete enemy missiles
-	for (unsigned i = 0; i < mEnemyMissiles.size(); i++) {
-		delete mEnemyMissiles[i];
-	}
-	mEnemyMissiles.clear();
-
-	// delete all explosion
-	for (unsigned i = 0; i < mExplosions.size(); i++) {
-		delete mExplosions[i];
-	}
-	mExplosions.clear();
-
-	Vec2 spawnPos;
-	spawnPos.x = 0.5f * System::GetWindowWidth();
-	spawnPos.y = 0.75f * System::GetWindowHeight();
-
-	mPlayer->SetCenter(spawnPos);
-	mPlayer->IsDead(false);
-
+    std::cout << "Window resized to " << w << 'x' << h << std::endl;
 }

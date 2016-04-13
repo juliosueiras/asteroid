@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "Missile.h"
 #include "System.h"
 

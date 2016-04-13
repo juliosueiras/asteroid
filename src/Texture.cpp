@@ -1,7 +1,5 @@
 #include <iostream>
-
 #include <SDL_image.h>
-
 #include "Texture.h"
 
 Texture::Texture(SDL_Texture* tex, int width, int height)
