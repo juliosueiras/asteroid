@@ -1,3 +1,21 @@
+/**
+ * One line to give the program's name and a brief description.
+ * Copyright © 2016 yourname
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <iostream>
 
 #include "System.h"
@@ -167,7 +185,7 @@ int main(int argc, char** argv)
     //
     // create game
     //
-    
+
     Game game;
 
     if (!game.Initialize()) {
@@ -202,31 +220,22 @@ int main(int argc, char** argv)
         // process events
         //
 
-        SDL_Event e;
-        while (SDL_PollEvent(&e)) {
-            switch (e.type) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
             case SDL_QUIT:
                 g_ShouldQuit = true;
                 break;
             case SDL_KEYDOWN:
-                game.OnKeyDown(e.key);
+                game.OnKeyDown(event.key);
                 break;
             case SDL_KEYUP:
-                game.OnKeyUp(e.key);
-                break;
-            case SDL_MOUSEBUTTONDOWN:
-                game.OnMouseDown(e.button);
-                break;
-            case SDL_MOUSEBUTTONUP:
-                game.OnMouseUp(e.button);
-                break;
-            case SDL_MOUSEMOTION:
-                game.OnMouseMotion(e.motion);
+                game.OnKeyUp(event.key);
                 break;
             case SDL_WINDOWEVENT:
-                if (e.window.event == SDL_WINDOWEVENT_RESIZED) {
-                    g_WindowWidth = e.window.data1;
-                    g_WindowHeight = e.window.data2;
+                if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+                    g_WindowWidth = event.window.data1;
+                    g_WindowHeight = event.window.data2;
                     game.OnWindowResized(g_WindowWidth, g_WindowHeight);
                 }
                 break;
@@ -256,7 +265,7 @@ int main(int argc, char** argv)
             game.Update(g_TimeSinceLastFrame);
         }
     }
-   
+
     //
     // cleanup
     //

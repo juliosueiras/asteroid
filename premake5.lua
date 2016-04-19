@@ -1,4 +1,5 @@
 -- premake5.lua
+require "export-compile-commands"
 workspace "Asteroid"
 	configurations { "Debug", "Release" }
 
@@ -15,7 +16,7 @@ project "Asteroid"
 	filter "action:gmake"
 		system "Linux"
 		flags { "Symbols" }
-		buildoptions { "`pkg-config --cflags sdl2`" }
+		buildoptions {"-std=c++11", "`pkg-config --cflags sdl2`" }
 		linkoptions { "`pkg-config --libs sdl2`", "`pkg-config --libs SDL2_image`"}
 
         postbuildcommands {

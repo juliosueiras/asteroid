@@ -20,9 +20,9 @@ class Game
     Texture*                mShot2Tex;
     Texture*                mExplosionTex;
 
-    Player*				    mPlayer;
-	
-	std::vector<Enemy*>     mEnemies;
+    Player*                 mPlayer;
+
+    std::vector<Enemy*>     mEnemies;
 
     std::vector<Missile*>   mEnemyMissiles;
 
@@ -39,26 +39,23 @@ public:
                             Game();
                             ~Game();
 
-    bool				    Initialize();
-    void				    Shutdown();
+    bool                    Initialize();
+    void                    Shutdown();
 
-	/* Update method of the Game
-	 * @dt no ideal what is that
-	 *
-	 * Update every frame of the game(including refresh enemy, player, missle, and explosion)
-	 */
-    void				    Update(float dt);
+    /* Update method of the Game
+     * @dt no ideal what is that
+     *
+     * Update every frame of the game(including refresh enemy, player, missle, and explosion)
+     */
+    void                    Update(float dt);
 
-    void				    Reset();
+    void                    Reset();
 
-    void				    Draw(SDL_Renderer* renderer);
-    
-    void				    OnWindowResized(int w, int h);
-    void				    OnKeyDown(const SDL_KeyboardEvent& kbe);
-    void				    OnKeyUp(const SDL_KeyboardEvent& kbe);
-    void				    OnMouseDown(const SDL_MouseButtonEvent& mbe);
-    void				    OnMouseUp(const SDL_MouseButtonEvent& mbe);
-    void				    OnMouseMotion(const SDL_MouseMotionEvent& mme);
+    void                    Draw(SDL_Renderer* renderer);
+
+    void                    OnWindowResized(int w, int h);
+    void                    OnKeyDown(const SDL_KeyboardEvent& kbe);
+    void                    OnKeyUp(const SDL_KeyboardEvent& kbe);
 
     float                   WorldLeft() const       { return 0.0f; }
     float                   WorldRight() const      { return (float)System::GetWindowWidth(); }
