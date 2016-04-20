@@ -2,13 +2,31 @@
           {
             "directory": "/home/juliosueiras/school/asteroid",
             "file": "/home/juliosueiras/school/asteroid/src/Animation.cpp",
-            "command": "cc -I/usr/include/SDL2  -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Animation.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Animation.d -c /home/juliosueiras/school/asteroid/src/Animation.cpp"
+            "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Animation.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Animation.d -c /home/juliosueiras/school/asteroid/src/Animation.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Asteroid.cpp",
+            "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Asteroid.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Asteroid.d -c /home/juliosueiras/school/asteroid/src/Asteroid.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Button.cpp",
+            "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Button.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Button.d -c /home/juliosueiras/school/asteroid/src/Button.cpp"
           }
 ,
           {
             "directory": "/home/juliosueiras/school/asteroid",
             "file": "/home/juliosueiras/school/asteroid/src/Enemy.cpp",
             "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Enemy.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Enemy.d -c /home/juliosueiras/school/asteroid/src/Enemy.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Entity.cpp",
+            "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Entity.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Entity.d -c /home/juliosueiras/school/asteroid/src/Entity.cpp"
           }
 ,
           {
@@ -21,6 +39,18 @@
             "directory": "/home/juliosueiras/school/asteroid",
             "file": "/home/juliosueiras/school/asteroid/src/Game.cpp",
             "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Game.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Game.d -c /home/juliosueiras/school/asteroid/src/Game.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Gameplay.cpp",
+            "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Gameplay.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Gameplay.d -c /home/juliosueiras/school/asteroid/src/Gameplay.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/MainMenu.cpp",
+            "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/MainMenu.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/MainMenu.d -c /home/juliosueiras/school/asteroid/src/MainMenu.cpp"
           }
 ,
           {
@@ -39,6 +69,12 @@
             "directory": "/home/juliosueiras/school/asteroid",
             "file": "/home/juliosueiras/school/asteroid/src/Random.cpp",
             "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Random.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Random.d -c /home/juliosueiras/school/asteroid/src/Random.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Rotation.cpp",
+            "command": "cc -I/usr/include/SDL2 -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Debug/Rotation.o -MF /home/juliosueiras/school/asteroid/bin/obj/Debug/Rotation.d -c /home/juliosueiras/school/asteroid/src/Rotation.cpp"
           }
 ,
           {

@@ -1,63 +1,47 @@
-#include <iostream>
-
 #include "Player.h"
 #include "System.h"
+#include "Rotation.h"
+
+#include <iostream>
 
 Player::Player(const Vec2& pos, const Texture* tex)
-    : mTex(tex)
-    , mCenter(pos)
+    : Entity(pos, tex)
     , mSpeed(100.0f)        // pixels/second
-	, isDead(false)
+    , mRotSpeed(180.0f)     // degrees/second
 {
-}
-
-Player::~Player()
-{
-    //std::cout << "Destroying Player" << std::endl;
 }
 
 void Player::Update(float dt)
 {
     const Uint8* keys = System::GetKeyStates();
 
+    //
+    // apply rotations
+    //
     if (keys[SDL_SCANCODE_D]) {
-        mCenter.x += mSpeed * dt;
+        mAngle += mRotSpeed * dt;
     }
     if (keys[SDL_SCANCODE_A]) {
-        mCenter.x -= mSpeed * dt;
+        mAngle -= mRotSpeed * dt;
     }
+
+    // keep the angle in standard range (-180, 180]
+    mAngle = StandardizeAngle(mAngle);
+
+    //std::cout << (int)mAngle << std::endl;
+
+    float radAngle = Deg2Rad(mAngle);
+
+    Vec2 dir = GetDirectionR(radAngle);
+
     if (keys[SDL_SCANCODE_W]) {
-        mCenter.y -= mSpeed * dt;
+        //mCenter.x += mSpeed * dt * std::cos(radAngle);
+        //mCenter.y += mSpeed * dt * std::sin(radAngle);
+        mCenter += mSpeed * dt * dir;
     }
     if (keys[SDL_SCANCODE_S]) {
-        mCenter.y += mSpeed * dt;
-    }
-}
-
-void Player::Draw(SDL_Renderer* renderer) const
-{
-    // check if we have a valid texture
-    if (mTex) {
-
-        // compute rectangle on screen
-        SDL_Rect screenRect;
-        screenRect.w = mTex->GetWidth();
-        screenRect.h = mTex->GetHeight();
-        screenRect.x = (int)(mCenter.x - mTex->GetWidth() / 2);
-        screenRect.y = (int)(mCenter.y - mTex->GetHeight() / 2);
-
-        // draw textured rectangle
-        SDL_RenderCopy(renderer, mTex->GetSDLTexture(), NULL, &screenRect);
-
-    } else {
-        // draw a placeholder
-        SDL_Rect screenRect;
-        screenRect.w = 64;
-        screenRect.h = 64;
-        screenRect.x = (int)(mCenter.x - screenRect.w / 2);
-        screenRect.y = (int)(mCenter.y - screenRect.h / 2);
-
-        SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-        SDL_RenderFillRect(renderer, &screenRect);
+        //mCenter.x -= mSpeed * dt * std::cos(radAngle);
+        //mCenter.y -= mSpeed * dt * std::sin(radAngle);
+        mCenter -= mSpeed * dt * dir;
     }
 }

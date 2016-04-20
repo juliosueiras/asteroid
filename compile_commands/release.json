@@ -7,8 +7,26 @@
 ,
           {
             "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Asteroid.cpp",
+            "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Asteroid.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Asteroid.d -c /home/juliosueiras/school/asteroid/src/Asteroid.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Button.cpp",
+            "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Button.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Button.d -c /home/juliosueiras/school/asteroid/src/Button.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
             "file": "/home/juliosueiras/school/asteroid/src/Enemy.cpp",
             "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Enemy.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Enemy.d -c /home/juliosueiras/school/asteroid/src/Enemy.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Entity.cpp",
+            "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Entity.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Entity.d -c /home/juliosueiras/school/asteroid/src/Entity.cpp"
           }
 ,
           {
@@ -21,6 +39,18 @@
             "directory": "/home/juliosueiras/school/asteroid",
             "file": "/home/juliosueiras/school/asteroid/src/Game.cpp",
             "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Game.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Game.d -c /home/juliosueiras/school/asteroid/src/Game.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Gameplay.cpp",
+            "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Gameplay.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Gameplay.d -c /home/juliosueiras/school/asteroid/src/Gameplay.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/MainMenu.cpp",
+            "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/MainMenu.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/MainMenu.d -c /home/juliosueiras/school/asteroid/src/MainMenu.cpp"
           }
 ,
           {
@@ -39,6 +69,12 @@
             "directory": "/home/juliosueiras/school/asteroid",
             "file": "/home/juliosueiras/school/asteroid/src/Random.cpp",
             "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Random.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Random.d -c /home/juliosueiras/school/asteroid/src/Random.cpp"
+          }
+,
+          {
+            "directory": "/home/juliosueiras/school/asteroid",
+            "file": "/home/juliosueiras/school/asteroid/src/Rotation.cpp",
+            "command": "cc -MMD -MP -I/home/juliosueiras/school/asteroid/include -o /home/juliosueiras/school/asteroid/bin/obj/Release/Rotation.o -MF /home/juliosueiras/school/asteroid/bin/obj/Release/Rotation.d -c /home/juliosueiras/school/asteroid/src/Rotation.cpp"
           }
 ,
           {

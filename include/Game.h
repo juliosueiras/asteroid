@@ -1,66 +1,41 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <SDL.h>
-
 #include <vector>
 
 #include "System.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Missile.h"
-#include "Explosion.h"
-#include "Random.h"
+#include "Gameplay.h"
+#include "MainMenu.h"
 
 class Game
 {
-    Texture*                mShuttleTex;
-    Texture*                mEnemyTex;
-    Texture*                mShotTex;
-    Texture*                mShot2Tex;
-    Texture*                mExplosionTex;
+    Gameplay*               mGameplayState;
+    MainMenu*               mMainMenuState;
 
-    Player*                 mPlayer;
-
-    std::vector<Enemy*>     mEnemies;
-
-    std::vector<Missile*>   mEnemyMissiles;
-
-    std::vector<Missile*>   mMissiles;
-
-    std::vector<Explosion*>   mExplosions;
-
-    float                   mMinSpawnDelay;
-    float                   mMaxSpawnDelay;
-
-    float                   mNextSpawnTime;
+    GameState*              mCurrentState;
 
 public:
                             Game();
                             ~Game();
 
-    bool                    Initialize();
-    void                    Shutdown();
+    bool				    Initialize();
+    void				    Shutdown();
 
-    /* Update method of the Game
-     * @dt no ideal what is that
-     *
-     * Update every frame of the game(including refresh enemy, player, missle, and explosion)
-     */
-    void                    Update(float dt);
+    void				    Update(float dt);
+    void				    Draw(SDL_Renderer* renderer);
+    
+    void				    OnWindowResized(int w, int h);
+    void				    OnKeyDown(const SDL_KeyboardEvent& kbe);
+    void				    OnKeyUp(const SDL_KeyboardEvent& kbe);
+    void				    OnMouseDown(const SDL_MouseButtonEvent& mbe);
+    void				    OnMouseUp(const SDL_MouseButtonEvent& mbe);
+    void				    OnMouseMotion(const SDL_MouseMotionEvent& mme);
 
-    void                    Reset();
+    Gameplay*               GetGameplayState() const    { return mGameplayState; }
+    MainMenu*               GetMainMenuState() const    { return mMainMenuState; }
 
-    void                    Draw(SDL_Renderer* renderer);
-
-    void                    OnWindowResized(int w, int h);
-    void                    OnKeyDown(const SDL_KeyboardEvent& kbe);
-    void                    OnKeyUp(const SDL_KeyboardEvent& kbe);
-
-    float                   WorldLeft() const       { return 0.0f; }
-    float                   WorldRight() const      { return (float)System::GetWindowWidth(); }
-    float                   WorldTop() const        { return 0.0f; }
-    float                   WorldBottom() const     { return (float)System::GetWindowHeight(); }
+    void                    EnterMainMenu();
+    void                    EnterGameplay();
 };
 
 #endif
