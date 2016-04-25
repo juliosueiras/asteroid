@@ -45,3 +45,7 @@ void Player::Update(float dt)
         mCenter -= mSpeed * dt * dir;
     }
 }
+
+bool Player::IsDead(bool dead) {
+   mDead = dead; 
+}

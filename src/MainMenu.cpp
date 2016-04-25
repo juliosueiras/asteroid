@@ -70,8 +70,6 @@ void MainMenu::Draw(SDL_Renderer* renderer)
         mBtnResume->Draw(renderer);
 
     } else {
-        SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, IMG_Load("media/shot.png"));
-        SDL_SetRenderTarget(renderer,tex);
         SDL_RenderClear(renderer);
     }
 

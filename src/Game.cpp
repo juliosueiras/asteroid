@@ -22,7 +22,7 @@ bool Game::Initialize()
 
     // set some window properties
     System::SetWindowSize(640, 640);
-    System::SetWindowTitle("Space Shootah!");
+    System::SetWindowTitle("Asteroid: The Last Of Its Kind");
 
     // initialize random seed
     InitRandom();

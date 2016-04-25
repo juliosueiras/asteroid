@@ -69,7 +69,7 @@ bool Gameplay::Initialize()
     if (not is_texture_loaded(mShotTex, "shot")) { return false; }
 
     mAsteroidTex = Texture::Load("media/asteroid.png", renderer);
-    if (not is_texture_loaded(mAsteroidTex, "alien")) { return false; }
+    if (not is_texture_loaded(mAsteroidTex, "asteroid")) { return false; }
 
     mBackgroundTex = Texture::Load("media/background.jpg", renderer);
     if (not is_texture_loaded(mBackgroundTex, "background")) { return false; }
@@ -109,18 +109,18 @@ void Gameplay::LoadLevel()
     mPlayer->SetAngle(-90.0f);
 
     //
-    // add aliens
+    // add asteroids
     //
 
-    int numAsteroids = 10;
+    int numAsteroids = 5;
     for (int i = 0; i < numAsteroids; i++) {
         float margin = 50;
         Vec2 pos;
         pos.x = RandomFloat(WorldLeft() + margin, WorldRight() - margin);
         pos.y = RandomFloat(WorldTop() + margin, WorldBottom() - margin);
         float angle = RandomFloat(-180.0f, 180.0f);
-        Asteroid* alien = new Asteroid(pos, mAsteroidTex, angle);
-        mAsteroids.push_back(alien);
+        Asteroid* asteroid = new Asteroid(pos, mAsteroidTex, angle);
+        mAsteroids.push_back(asteroid);
     }
 }
 
@@ -154,20 +154,22 @@ void Gameplay::Update(float dt)
     mPlayer->Update(dt);
 
     // keep the player within world bounds
-    if (mPlayer->Left() < worldLeft) {
-        mPlayer->SetRight(worldRight);
-    }
-    else if (mPlayer->Right() > worldRight) {
-        mPlayer->SetLeft(worldLeft);
-    }
-    if (mPlayer->Top() < worldTop) {
-        mPlayer->SetBottom(worldBottom);
-    }
-    else if (mPlayer->Bottom() > worldBottom) {
-        mPlayer->SetTop(worldTop);
+    if(! mPlayer->IsDead()) {
+        if (mPlayer->Left() < worldLeft) {
+            mPlayer->SetRight(worldRight);
+        }
+        else if (mPlayer->Right() > worldRight) {
+            mPlayer->SetLeft(worldLeft);
+        }
+        if (mPlayer->Top() < worldTop) {
+            mPlayer->SetBottom(worldBottom);
+        }
+        else if (mPlayer->Bottom() > worldBottom) {
+            mPlayer->SetTop(worldTop);
+        }
     }
 
-    // keep the aliens from intersecting each other
+    // keep the asteroids from intersecting each other
     for (unsigned i = 0; i < mAsteroids.size(); i++) {
         Asteroid* asteroid1 = mAsteroids[i];
         for (unsigned j = i + 1; j < mAsteroids.size(); j++) {
@@ -217,28 +219,61 @@ void Gameplay::Update(float dt)
                 Explosion* e = new Explosion(mPlayer->Center(), mExplosionTex, 3.0, 0.5);
                 mExplosions.push_back(e);
 
-                /* mPlayer->IsDead(true); */
+                mPlayer->IsDead(true);
 
-                mPlayer->SetTop(System::GetWindowHeight() + 200);
+                mPlayer->SetTop(System::GetWindowHeight() + 10000);
             }
         }
     }
 
+    // detect collision with missle and asteroid
+	for (unsigned i = 0; i < mMissiles.size();   ) {
+		Missile* m = mMissiles[i];
+
+		// update missile
+		m->Update(dt);
+
+		for (unsigned j = 0; j < mAsteroids.size();   ) {
+			Asteroid* asteroid = mAsteroids[j];
+
+			// detect if missle collide with a asteroid
+			if (Distance(m->Center(), asteroid->Center()) < 35) {
+
+				// create explosion
+				Explosion* e = new Explosion(m->Center(), mExplosionTex, 1.5, 0.5);
+				mExplosions.push_back(e);
+
+				// remove both missle and asteroid
+				delete m;
+				mMissiles[i] = mMissiles.back(); mMissiles.pop_back();
+
+				delete asteroid;
+				mAsteroids[j] = mAsteroids.back();
+				mAsteroids.pop_back();
+			} else {
+				// missile is still within world bounds: keep it and move on to the next one
+				++j;
+			}
+		}
+
+		++i;
+	}
+
     // warp the asteroid
     for (unsigned i = 0; i < mAsteroids.size(); i++) {
-        Asteroid* alien = mAsteroids[i];
-        Vec2 vel = alien->Velocity();
-        if (alien->Left() < worldLeft) {
-            alien->SetRight(worldRight);
+        Asteroid* asteroid = mAsteroids[i];
+        Vec2 vel = asteroid->Velocity();
+        if (asteroid->Left() < worldLeft) {
+            asteroid->SetRight(worldRight);
         }
-        else if (alien->Right() > worldRight) {
-            alien->SetLeft(worldLeft);
+        else if (asteroid->Right() > worldRight) {
+            asteroid->SetLeft(worldLeft);
         }
-        if (alien->Top() < worldTop) {
-            alien->SetBottom(worldBottom);
+        if (asteroid->Top() < worldTop) {
+            asteroid->SetBottom(worldBottom);
         }
-        else if (alien->Bottom() > worldBottom) {
-            alien->SetTop(worldTop);
+        else if (asteroid->Bottom() > worldBottom) {
+            asteroid->SetTop(worldTop);
         }
     }
 
@@ -250,16 +285,19 @@ void Gameplay::Update(float dt)
         m->Update(dt);
 
         // remove the missile if it went off screen
-        if (m->Left() > worldRight || m->Right() < worldLeft || m->Top() > worldBottom || m->Bottom() < worldTop) {
-            // missile is out of world bounds: remove it
-            delete m;
-            mMissiles[i] = mMissiles.back();
-            mMissiles.pop_back();
+        if (m->Left() < worldLeft) {
+            m->SetRight(worldRight);
         }
-        else {
-            // missile is still within world bounds: keep it and move on to the next one
+        else if (m->Right() > worldRight) {
+            m->SetLeft(worldLeft);
+        }
+        if (m->Top() < worldTop) {
+            m->SetBottom(worldBottom);
+        }
+        else if (m->Bottom() > worldBottom) {
+            m->SetTop(worldTop);
+        }
             ++i;
-        }
     }
 
     for (unsigned i = 0; i < mAsteroids.size(); i++) {
@@ -290,7 +328,9 @@ void Gameplay::Draw(SDL_Renderer* renderer)
 	}
 
     // draw player
-    mPlayer->Draw(renderer);
+    if(! mPlayer->IsDead()) {
+        mPlayer->Draw(renderer);
+    }
 }
 
 void Gameplay::OnKeyDown(const SDL_KeyboardEvent& kbe)
