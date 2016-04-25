@@ -2,6 +2,7 @@
 #define ASTEROID_H_
 
 #include "Entity.h"
+#include "Animation.h"
 
 class Asteroid : public Entity
 {

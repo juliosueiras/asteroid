@@ -2,6 +2,7 @@
 #include "Asteroid.h"
 #include "Random.h"
 #include "Rotation.h"
+#include "Explosion.h"
 
 Asteroid::Asteroid(const Vec2& pos, const Texture* tex, float angle)
     : Entity(pos, tex)
@@ -17,13 +18,15 @@ Asteroid::Asteroid(const Vec2& pos, const Texture* tex, float angle)
     mVelocity = mSpeed * dir;
 }
 
-void Asteroid::Update(float dt)
-{
-    mCenter += dt * mVelocity;
-}
-
 void Asteroid::SetVelocity(const Vec2& v)
 {
     mVelocity = v;
     SetAngle(GetAngleD(v));
 }
+
+
+void Asteroid::Update(float dt)
+{
+    mCenter += dt * mVelocity;
+}
+

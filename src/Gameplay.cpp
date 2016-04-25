@@ -68,7 +68,7 @@ bool Gameplay::Initialize()
     mShotTex = Texture::Load("media/shot.png", renderer);
     if (not is_texture_loaded(mShotTex, "shot")) { return false; }
 
-    mAsteroidTex = Texture::Load("media/alien.png", renderer);
+    mAsteroidTex = Texture::Load("media/asteroid.png", renderer);
     if (not is_texture_loaded(mAsteroidTex, "alien")) { return false; }
 
     mBackgroundTex = Texture::Load("media/background.jpg", renderer);
@@ -112,7 +112,7 @@ void Gameplay::LoadLevel()
     // add aliens
     //
 
-    int numAsteroids = 3;
+    int numAsteroids = 10;
     for (int i = 0; i < numAsteroids; i++) {
         float margin = 50;
         Vec2 pos;
@@ -189,45 +189,56 @@ void Gameplay::Update(float dt)
         }
     }
 
-    // keep the aliens from intersecting the player
-    for (unsigned i = 0; i < mAsteroids.size(); i++) {
-        Asteroid* alien = mAsteroids[i];
-        float d = Distance(alien->Center(), mPlayer->Center());
-        if (d < alien->Radius() + mPlayer->Radius()) {
-            float depth = alien->Radius() + mPlayer->Radius() - d;      // penetration depth
-            Vec2 axis = mPlayer->Center() - alien->Center();            // collision axis
-            axis.Normalize();
-            alien->SetCenter(alien->Center() - depth * axis);           // push away the alien
+    // update explosions
+    for (unsigned i = 0; i < mExplosions.size(); ) {
+        Explosion* e = mExplosions[i];
+
+        // update explosion
+        e->Update(dt);
+
+        // remove the explosion if it is finished
+        if (e->IsFinished()) {
+            delete e;
+            mExplosions[i] = mExplosions.back();
+            mExplosions.pop_back();
+        } else {
+            // keep current effect and move on to the next one
+            ++i;
         }
     }
 
-    // keep the aliens within world bounds
+    // check asteroid collide with player
+    if (not Gameplay::IsGodMode()) {
+        for (unsigned i = 0; i < mAsteroids.size(); i++) {
+            Asteroid* asteroid = mAsteroids[i];
+            float d = Distance(asteroid->Center(), mPlayer->Center());
+            if (d < asteroid->Radius() + mPlayer->Radius()) {
+
+                Explosion* e = new Explosion(mPlayer->Center(), mExplosionTex, 3.0, 0.5);
+                mExplosions.push_back(e);
+
+                /* mPlayer->IsDead(true); */
+
+                mPlayer->SetTop(System::GetWindowHeight() + 200);
+            }
+        }
+    }
+
+    // warp the asteroid
     for (unsigned i = 0; i < mAsteroids.size(); i++) {
         Asteroid* alien = mAsteroids[i];
         Vec2 vel = alien->Velocity();
         if (alien->Left() < worldLeft) {
             alien->SetRight(worldRight);
-            /* if (vel.x < 0) { */
-            /*     alien->SetVelocity(Vec2(-vel.x, vel.y)); */
-            /* } */
         }
         else if (alien->Right() > worldRight) {
             alien->SetLeft(worldLeft);
-            /* if (vel.x > 0) { */
-            /*     alien->SetVelocity(Vec2(-vel.x, vel.y)); */
-            /* } */
         }
         if (alien->Top() < worldTop) {
             alien->SetBottom(worldBottom);
-            /* if (vel.y < 0) { */
-            /*     alien->SetVelocity(Vec2(vel.x, -vel.y)); */
-            /* } */
         }
         else if (alien->Bottom() > worldBottom) {
             alien->SetTop(worldTop);
-            /* if (vel.y > 0) { */
-            /*     alien->SetVelocity(Vec2(vel.x, -vel.y)); */
-            /* } */
         }
     }
 
@@ -272,6 +283,11 @@ void Gameplay::Draw(SDL_Renderer* renderer)
     for (unsigned i = 0; i < mAsteroids.size(); i++) {
         mAsteroids[i]->Draw(renderer);
     }
+    //
+	// draw explosions
+	for (unsigned i = 0; i < mExplosions.size(); i++) {
+		mExplosions[i]->Draw(renderer);
+	}
 
     // draw player
     mPlayer->Draw(renderer);
@@ -292,5 +308,19 @@ void Gameplay::OnKeyDown(const SDL_KeyboardEvent& kbe)
             mMissiles.push_back(missile);
         }
         break;
+    case SDLK_g:
+        {
+            if (Gameplay::IsGodMode()) {
+                std::cout << "God Mode disable" << std::endl;
+                Gameplay::SetGodMode(false);
+            } else {
+                std::cout << "God Mode enable" << std::endl;
+                Gameplay::SetGodMode(true);
+            }
+        }
+        break;
     }
+}
+bool Gameplay::SetGodMode(const bool godMode)  {
+    mGodMode = godMode;
 }

@@ -26,6 +26,7 @@ class Gameplay : public GameState
     std::vector<Explosion*>  mExplosions;
 
     bool                    mIsActive;
+    bool                    mGodMode = false;
 
 public:
                             Gameplay(Game* game);
@@ -48,6 +49,9 @@ public:
     void                    ClearLevel();
 
     bool                    IsActive() const        { return mIsActive; }
+
+    bool                    IsGodMode() const        { return mGodMode; }
+    bool                    SetGodMode(bool godMode);
 };
 
 #endif
