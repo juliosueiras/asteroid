@@ -6,6 +6,8 @@
 #include "Player.h"
 #include "Missile.h"
 #include "Asteroid.h"
+#include "Explosion.h"
+#include "Random.h"
 
 #include <vector>
 
@@ -15,11 +17,13 @@ class Gameplay : public GameState
     Texture*                mShotTex;
     Texture*                mAsteroidTex;
     Texture*                mBackgroundTex;
+    Texture*                mExplosionTex;
 
     Player*				    mPlayer;
 
     std::vector<Missile*>   mMissiles;
-    std::vector<Asteroid*>     mAsteroids;
+    std::vector<Asteroid*>  mAsteroids;
+    std::vector<Explosion*>  mExplosions;
 
     bool                    mIsActive;
 

@@ -43,3 +43,4 @@ project "Asteroid"
 			'{COPY} "%{wks.location}libs/windows/SDL2/lib/x86/zlib1.dll" "%{cfg.targetdir}"',
 			'{COPY} "%{wks.location}media" "%{cfg.targetdir}"'
 		}
+

@@ -15,14 +15,28 @@ bool is_texture_loaded(Texture* tex, std::string texName)
     return true;
 }
 
+void reverse_direction(Asteroid* asteroid, Vec2 vel) {
+    if ((vel.y > 0 || vel.y < 0) && (vel.x > 0 || vel.x < 0)) {
+        asteroid->SetVelocity(Vec2(-vel.x, -vel.y));
+    } else if (vel.y > 0 || vel.y < 0) {
+        asteroid->SetVelocity(Vec2(vel.x, -vel.y));
+    } else if (vel.x > 0 || vel.x < 0) {
+        asteroid->SetVelocity(Vec2(-vel.x, vel.y));
+    }
+}
+
+
+
 Gameplay::Gameplay(Game* game)
     : GameState(game)
     , mShuttleTex(NULL)
     , mShotTex(NULL)
     , mAsteroidTex(NULL)
     , mBackgroundTex(NULL)
+    , mExplosionTex(NULL)
     , mPlayer(NULL)
     , mMissiles()
+    , mExplosions()
     , mIsActive(false)
 {
 }
@@ -60,6 +74,9 @@ bool Gameplay::Initialize()
     mBackgroundTex = Texture::Load("media/background.jpg", renderer);
     if (not is_texture_loaded(mBackgroundTex, "background")) { return false; }
 
+    mExplosionTex = Texture::Load("media/explosion.tga", renderer);
+    if (not is_texture_loaded(mExplosionTex, "explosion")) { return false; }
+
     LoadLevel();
 
     return true;
@@ -95,7 +112,7 @@ void Gameplay::LoadLevel()
     // add aliens
     //
 
-    int numAsteroids = 25;
+    int numAsteroids = 3;
     for (int i = 0; i < numAsteroids; i++) {
         float margin = 50;
         Vec2 pos;
@@ -138,31 +155,36 @@ void Gameplay::Update(float dt)
 
     // keep the player within world bounds
     if (mPlayer->Left() < worldLeft) {
-        mPlayer->SetLeft(worldLeft);
-    }
-    else if (mPlayer->Right() > worldRight) {
         mPlayer->SetRight(worldRight);
     }
+    else if (mPlayer->Right() > worldRight) {
+        mPlayer->SetLeft(worldLeft);
+    }
     if (mPlayer->Top() < worldTop) {
-        mPlayer->SetTop(worldTop);
+        mPlayer->SetBottom(worldBottom);
     }
     else if (mPlayer->Bottom() > worldBottom) {
-        mPlayer->SetBottom(worldBottom);
+        mPlayer->SetTop(worldTop);
     }
 
     // keep the aliens from intersecting each other
     for (unsigned i = 0; i < mAsteroids.size(); i++) {
-        Asteroid* alien1 = mAsteroids[i];
+        Asteroid* asteroid1 = mAsteroids[i];
         for (unsigned j = i + 1; j < mAsteroids.size(); j++) {
-            Asteroid* alien2 = mAsteroids[j];
-            float d = Distance(alien1->Center(), alien2->Center());
-            if (d < alien1->Radius() + alien2->Radius()) {
-                float depth = alien1->Radius() + alien2->Radius() - d;      // penetration depth
+            Asteroid* asteroid2 = mAsteroids[j];
+            float d = Distance(asteroid1->Center(), asteroid2->Center());
+            if (d < asteroid1->Radius() + asteroid2->Radius()) {
+                float depth = asteroid1->Radius() + asteroid2->Radius() - d;      // penetration depth
                 float halfDepth = 0.5f * depth;
-                Vec2 axis = alien2->Center() - alien1->Center();            // collision axis
+                Vec2 axis = asteroid2->Center() - asteroid1->Center();            // collision axis
                 axis.Normalize();
-                alien1->SetCenter(alien1->Center() - halfDepth * axis);     // push away alien 1
-                alien2->SetCenter(alien2->Center() + halfDepth * axis);     // push away alien 2
+                asteroid1->SetCenter(asteroid1->Center() - halfDepth * axis);     // push away asteroid 1
+
+            reverse_direction(asteroid1, asteroid1->Velocity());
+
+            reverse_direction(asteroid2, asteroid2->Velocity());
+
+            asteroid2->SetCenter(asteroid2->Center() + halfDepth * axis);     // push away asteroid 2
             }
         }
     }
@@ -184,28 +206,28 @@ void Gameplay::Update(float dt)
         Asteroid* alien = mAsteroids[i];
         Vec2 vel = alien->Velocity();
         if (alien->Left() < worldLeft) {
-            alien->SetLeft(worldLeft);
-            if (vel.x < 0) {
-                alien->SetVelocity(Vec2(-vel.x, vel.y));
-            }
+            alien->SetRight(worldRight);
+            /* if (vel.x < 0) { */
+            /*     alien->SetVelocity(Vec2(-vel.x, vel.y)); */
+            /* } */
         }
         else if (alien->Right() > worldRight) {
-            alien->SetRight(worldRight);
-            if (vel.x > 0) {
-                alien->SetVelocity(Vec2(-vel.x, vel.y));
-            }
+            alien->SetLeft(worldLeft);
+            /* if (vel.x > 0) { */
+            /*     alien->SetVelocity(Vec2(-vel.x, vel.y)); */
+            /* } */
         }
         if (alien->Top() < worldTop) {
-            alien->SetTop(worldTop);
-            if (vel.y < 0) {
-                alien->SetVelocity(Vec2(vel.x, -vel.y));
-            }
+            alien->SetBottom(worldBottom);
+            /* if (vel.y < 0) { */
+            /*     alien->SetVelocity(Vec2(vel.x, -vel.y)); */
+            /* } */
         }
         else if (alien->Bottom() > worldBottom) {
-            alien->SetBottom(worldBottom);
-            if (vel.y > 0) {
-                alien->SetVelocity(Vec2(vel.x, -vel.y));
-            }
+            alien->SetTop(worldTop);
+            /* if (vel.y > 0) { */
+            /*     alien->SetVelocity(Vec2(vel.x, -vel.y)); */
+            /* } */
         }
     }
 
