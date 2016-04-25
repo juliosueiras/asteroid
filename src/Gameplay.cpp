@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+int score = 0;
+
 bool is_texture_loaded(Texture* tex, std::string texName)
 {
     if (not tex) {
@@ -128,6 +130,7 @@ void Gameplay::ClearLevel()
 {
     delete mPlayer;
     mPlayer = NULL;
+    score = 0;
 
     for (auto it = mMissiles.begin(); it != mMissiles.end(); it++) {
         Missile* m = *it;
@@ -139,6 +142,7 @@ void Gameplay::ClearLevel()
         Asteroid* a = *it;
         delete a;
     }
+
     mAsteroids.clear();
 }
 
@@ -250,6 +254,9 @@ void Gameplay::Update(float dt)
 				delete asteroid;
 				mAsteroids[j] = mAsteroids.back();
 				mAsteroids.pop_back();
+
+                score++;
+                std::cout << "Score:" << score << std::endl;
 			} else {
 				// missile is still within world bounds: keep it and move on to the next one
 				++j;
@@ -297,7 +304,8 @@ void Gameplay::Update(float dt)
         else if (m->Bottom() > worldBottom) {
             m->SetTop(worldTop);
         }
-            ++i;
+
+        ++i;
     }
 
     for (unsigned i = 0; i < mAsteroids.size(); i++) {

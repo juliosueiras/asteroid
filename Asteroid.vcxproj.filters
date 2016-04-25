@@ -7,15 +7,225 @@
     <Filter Include="media">
       <UniqueIdentifier>{A588EC0F-119D-14C1-DA1E-B82046F210F2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="media\FreeFantasyGUI (1)">
+      <UniqueIdentifier>{B3F7B772-9F1C-07F3-C867-EC82B4EB0511}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\FreeFantasyGUI (1)\cdr">
+      <UniqueIdentifier>{7B119E78-67CC-8D24-1084-066FFC1DD8B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\FreeFantasyGUI (1)\png">
+      <UniqueIdentifier>{074A9E78-F304-8E24-9CBC-066F8856D8B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\FreeFantasyGUI (1)\svg">
+      <UniqueIdentifier>{D2579E78-BE12-8E24-67CA-066F5364D8B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\particles_20101102">
+      <UniqueIdentifier>{21C287E0-0DE7-D660-3632-BCF022B6D57E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\particles_20101102\particles">
+      <UniqueIdentifier>{5704937E-4340-96E8-AC52-AEDF98AD3E03}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="media\FreeFantasyGUI (1).zip">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\FreeFantasyGUI (1)\cdr\Button.cdr">
+      <Filter>media\FreeFantasyGUI (1)\cdr</Filter>
+    </None>
+    <None Include="media\FreeFantasyGUI (1)\cdr\Windows.cdr">
+      <Filter>media\FreeFantasyGUI (1)\cdr</Filter>
+    </None>
+    <None Include="media\FreeFantasyGUI (1)\png\Button.png">
+      <Filter>media\FreeFantasyGUI (1)\png</Filter>
+    </None>
+    <None Include="media\FreeFantasyGUI (1)\png\README.txt">
+      <Filter>media\FreeFantasyGUI (1)\png</Filter>
+    </None>
+    <None Include="media\FreeFantasyGUI (1)\png\Windows.png">
+      <Filter>media\FreeFantasyGUI (1)\png</Filter>
+    </None>
+    <None Include="media\FreeFantasyGUI (1)\svg\Button.svg">
+      <Filter>media\FreeFantasyGUI (1)\svg</Filter>
+    </None>
+    <None Include="media\FreeFantasyGUI (1)\svg\Windows.svg">
+      <Filter>media\FreeFantasyGUI (1)\svg</Filter>
+    </None>
     <None Include="media\alien.png">
       <Filter>media</Filter>
     </None>
+    <None Include="media\animated_asteroid_0.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\animated_asteroid_0.xcf">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\asteroid.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\background.bmp">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\background.jpg">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\button.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\button_exit.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\button_mainmenu.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\button_new.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\button_resume.png">
+      <Filter>media</Filter>
+    </None>
     <None Include="media\explosion.tga">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\normal_button.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\normal_button.xcf">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\LICENSE">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\asteroid.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\bloodsplat.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\chili.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\fireball.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\firebowl.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\fireburst.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\firecloud.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\fireflash.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\firetrail.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\goldcoin.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\heart.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\iceblock.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\mushroom.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\paprica.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\pearlballs.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\pearldrop.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\pebble.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\plasmaball.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\plasmablast.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\plasmaburst.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\plasmacloud.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\plasmashot.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\poisonblurb.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\poisonivy.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\poisonvirus.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\preview.jpg">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\roseleaf.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\shrapballs.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\shrapburst.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\shrapcast.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\shrapflash.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\shrapnel.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\shrapshot.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\snowstorm.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\starbig.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\starbright.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\stardim.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\thunderflash.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\tulipleaf.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\virusinfection.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\particles_20101102\particles\waterdrop.tga">
+      <Filter>media\particles_20101102\particles</Filter>
+    </None>
+    <None Include="media\ships_asteroids.png">
+      <Filter>media</Filter>
+    </None>
+    <None Include="media\ships_asteroids.xcf">
       <Filter>media</Filter>
     </None>
     <None Include="media\shot.png">
@@ -32,13 +242,31 @@
     <ClInclude Include="include\Animation.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Asteroid.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Button.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="include\Enemy.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Explosion.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Game.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameState.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Gameplay.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MainMenu.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Missile.h">
@@ -48,6 +276,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Random.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rotation.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\System.h">
@@ -67,13 +298,28 @@
     <ClCompile Include="src\Animation.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Asteroid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Enemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Explosion.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gameplay.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainMenu.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Missile.cpp">
@@ -83,6 +329,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Random.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rotation.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\System.cpp">
